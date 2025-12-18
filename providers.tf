@@ -1,4 +1,6 @@
 terraform {
+  required_version = ">= 1.0"
+  
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -6,6 +8,7 @@ terraform {
     }
   }
 }
+
 provider "azurerm" {
   tenant_id       = "91407618-9c60-4397-bdb6-b3607361e938"
   subscription_id = "e68b40bf-5f8d-4484-b9f3-2da3d7e23167"
