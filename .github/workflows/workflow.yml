@@ -1,6 +1,9 @@
 name: Terraform AKS Deployment
 
 on:
+  push:
+    branches:
+      - aks
   workflow_dispatch:
     inputs:
       path:
