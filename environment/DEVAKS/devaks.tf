@@ -3,7 +3,7 @@
 ############################
 
 module "rg" {
-  source   = "../../modules/resourcegroup"
+  source   = "../../Modules/resourcegroup"
   name     = "terraform-rg"
   location = "Central India"
 }
@@ -13,7 +13,7 @@ module "rg" {
 ############################
 
 module "vnet" {
-  source              = "../../modules/vnet"
+  source              = "../../Modules/vnet"
   name                = "vnet-aks-dev"
   location            = module.rg.location
   resource_group_name = module.rg.name
@@ -21,7 +21,7 @@ module "vnet" {
 }
 
 module "subnet" {
-  source              = "../../modules/subnet"
+  source              = "../../Modules/subnet"
   name                = "aks-subnet"
   resource_group_name = module.rg.name
   vnet_name           = module.vnet.vnet_name
@@ -37,7 +37,7 @@ module "subnet" {
 ############################
 
 module "nsg" {
-  source              = "../../modules/nsg"
+  source              = "../../Modules/NSG"
   name                = "nsg-aks-dev"
   location            = module.rg.location
   resource_group_name = module.rg.name
@@ -62,7 +62,7 @@ module "nsg" {
 ############################
 
 # module "route_table" {
-#   source              = "../../modules/route-table"
+#   source              = "../../Modules/route-table"
 #   name                = "rt-aks-dev"
 #   location            = module.rg.location
 #   resource_group_name = module.rg.name
@@ -76,7 +76,7 @@ module "nsg" {
 ############################
 
 module "acr" {
-  source              = "../../modules/acr"
+  source              = "../../Modules/ACR"
   name                = "acraksdev12345"
   location            = module.rg.location
   resource_group_name = module.rg.name
@@ -99,12 +99,12 @@ module "acr" {
 ############################
 
 module "aks" {
-  source              = "../../modules/aks"
+  source              = "../../Modules/AKS"
   cluster_name        = "aks-dev"
   location            = module.rg.location
   resource_group_name = module.rg.name
   dns_prefix          = "aksdev"
-  kubernetes_version  = "1.29.0"
+  kubernetes_version  = "1.33.0"
   subnet_id           = module.vnet.subnet_ids["aks-subnet"]
   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
 
@@ -117,7 +117,7 @@ module "aks" {
   }
 
   user_node_pool = {
-    vm_size   = "Standard_DS_v2"
+    vm_size   = "Standard_DS2_v2"
     min_count = 1
     max_count = 2
   }
@@ -128,7 +128,7 @@ module "aks" {
 ############################
 
 module "acr_role" {
-  source = "../../modules/aks-acr-role"
+  source = "../../Modules/aks-acr-role"
 
   aks_kubelet_identity_object_id = module.aks.kubelet_identity_object_id
   acr_id                         = module.acr.id
