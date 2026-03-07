@@ -20,9 +20,11 @@ jobs:
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
+    env:
+      TERRAFORM_PATH: ${{ github.event.inputs.path || 'environment/DEVAKS' }}
     defaults:
       run:
-        working-directory: ${{ github.event.inputs.path }}
+        working-directory: ${{ env.TERRAFORM_PATH }}
 
     steps:
       - name: Checkout
@@ -61,9 +63,11 @@ jobs:
     needs: terraform-plan
     runs-on: ubuntu-latest
     environment: Production
+    env:
+      TERRAFORM_PATH: ${{ github.event.inputs.path || 'environment/DEVAKS' }}
     defaults:
       run:
-        working-directory: ${{ github.event.inputs.path }}
+        working-directory: ${{ env.TERRAFORM_PATH }}
 
     steps:
       - name: Checkout
