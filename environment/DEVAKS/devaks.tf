@@ -99,13 +99,13 @@ module "acr" {
 ############################
 
 module "aks" {
-  source              = "../../Modules/AKS"
-  cluster_name        = "aks-dev"
-  location            = module.rg.location
-  resource_group_name = module.rg.name
-  dns_prefix          = "aksdev"
-  kubernetes_version  = "1.33.0"
-  subnet_id           = module.vnet.subnet_ids["aks-subnet"]
+  source                     = "../../Modules/AKS"
+  cluster_name               = "aks-dev"
+  location                   = module.rg.location
+  resource_group_name        = module.rg.name
+  dns_prefix                 = "aksdev"
+  kubernetes_version         = "1.33.0"
+  subnet_id                  = module.vnet.subnet_ids["aks-subnet"]
   log_analytics_workspace_id = azurerm_log_analytics_workspace.law.id
 
   private_cluster_enabled = true
