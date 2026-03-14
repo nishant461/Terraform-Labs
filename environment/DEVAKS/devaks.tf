@@ -127,9 +127,9 @@ module "aks" {
 # ACR ↔ AKS ROLE
 ############################
 
-module "acr_role" {
-  source = "../../Modules/aks-acr-role"
-
-  aks_kubelet_identity_object_id = module.aks.kubelet_identity_object_id
-  acr_id                         = module.acr.id
-}
+# module "acr_role" {
+#   source = "../../Modules/aks-acr-role"
+#
+#   aks_kubelet_identity_object_id = module.aks.kubelet_identity_object_id
+#   acr_id                         = module.acr.id
+# }

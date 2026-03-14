@@ -16,7 +16,3 @@ terraform {
     key                  = "aks-dev.terraform.tfstate"
   }
 }
-
-provider "azurerm" {
-  features {}
-}
