@@ -27,9 +27,7 @@ module "subnet" {
   vnet_name           = module.vnet.vnet_name
 
   subnet = {
-    aks-subnet = {
-      address_prefixes = ["10.0.1.0/24"]
-    }
+    address_prefixes = ["10.0.1.0/24"]
   }
 }
 ############################
@@ -105,7 +103,7 @@ module "aks" {
   resource_group_name = module.rg.name
   dns_prefix          = "aksdev"
   kubernetes_version  = "1.33.0"
-  subnet_id           = module.vnet.subnet_ids["aks-subnet"]
+  subnet_id           = module.subnet.id
 
   private_cluster_enabled = true
 
